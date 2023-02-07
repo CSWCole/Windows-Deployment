@@ -14,6 +14,11 @@ Changes By Cole Bermudez:
 -Added in Changing Computer name
 -Added and checked Windows Hardening
 -Added services that should be manually started to reduce startup time and improve performance and resource usage
+
+Limitations:
+-Cannot install Carbon Black
+-Cannot check for missing drivers
+-Does not run Windows Update
 #>
 
 # Create a log file for debugging
@@ -76,7 +81,6 @@ fsutil behavior set DisableDeleteNotify 0
 
 
 # Enable system restore on C:\
-
 Write-Host -ForegroundColor Green "Enabling system restore..."
 Enable-ComputerRestore -Drive "$env:SystemDrive"
 
@@ -103,18 +107,18 @@ Set-TimeZone -Id "Mountain Standard Time"
 Write-Host -ForegroundColor Green "Enable .NET Framework"
 Enable-WindowsOptionalFeature -Online -FeatureName NetFx3 -All
 
-#Disable LLMNR
-Write-Host -ForegroundColor Green "Disabling LLMNR"
-REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient”
-REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient” /v ” EnableMulticast” /t REG_DWORD /d “0” /f
-
 #Disable NBT-NS
 Write-Host -ForegroundColor Green "Disabling NBT-NS"
 $regkey = "HKLM:SYSTEM\CurrentControlSet\services\NetBT\Parameters\Interfaces"
 Get-ChildItem $regkey |foreach { Set-ItemProperty -Path "$regkey\$($_.pschildname)" -Name NetbiosOptions -Value 2 -Verbose}
 
-Write-Host -ForegroundColor Green "Enabling SMB signing as always"
+#Disable LLMNR
+Write-Host -ForegroundColor Green "Disabling LLMNR"
+REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient”
+REG ADD  “HKLM\Software\policies\Microsoft\Windows NT\DNSClient” /v ” EnableMulticast” /t REG_DWORD /d “0” /f
+
 #Enable SMB signing as 'always'
+Write-Host -ForegroundColor Green "Enabling SMB signing as always"
 $Parameters = @{
     RequireSecuritySignature = $True
     EnableSecuritySignature = $True
@@ -175,9 +179,9 @@ Add-LocalGroupMember -Group "Administrators" -Member $UserName
 ##########Essential Tweaks##########
 
 #Set Reg key to lock to 21H2
-Write-Host -ForegroundColor Green "Locking Windows 11 Upgrade for Win10 Devices"
-REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f /v TargetReleaseVersion /t Reg_DWORD /d 1
-REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f /v TargetReleaseVersionInfo /t REG_SZ /d 21H2
+#Write-Host -ForegroundColor Green "Locking Windows 11 Upgrade for Win10 Devices"
+#REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f /v TargetReleaseVersion /t Reg_DWORD /d 1
+#REG ADD HKLM\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate /f /v TargetReleaseVersionInfo /t REG_SZ /d 21H2
 
 Write-Host -ForegroundColor Green "Install Chocolatey to automate basic program installation"
 #install Chocolatey and other programs
@@ -197,11 +201,11 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
     choco install 7zip -y
 
 #Enable RDP
-Write-Host -ForegroundColor Green "Enable RDP"
-reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
-netsh advfirewall firewall set rule group="remote desktop" new enable=yes
-Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
-Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+#Write-Host -ForegroundColor Green "Enable RDP"
+#reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+#netsh advfirewall firewall set rule group="remote desktop" new enable=yes
+#Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
+#Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 
 #Warn about errors
 Write-Warning "Errors past this point indicate one of two things `n1.The service is already set to manual `n2.The AppX Package is not installed"
