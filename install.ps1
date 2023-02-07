@@ -37,11 +37,11 @@ autoLogon and stored credential regkeys.
 #>
 
 # Download needed scripts
-Invoke-WebRequest "https://raw.githubusercontent.com/colebermudez/Windows-Deployment/main/cleanup.ps1" -OutFile C:\Support\Scripts\cleanup.ps1
-Invoke-WebRequest "https://raw.githubusercontent.com/colebermudez/Windows-Deployment/main/Windows-Setup.ps1" -OutFile C:\Support\Scripts\WindowsSetup.ps1
+Invoke-WebRequest "https://raw.githubusercontent.com/CSWCole/Windows-Deployment/main/cleanup.ps1" -OutFile C:\Support\Scripts\cleanup.ps1
+Invoke-WebRequest "https://raw.githubusercontent.com/CSWCole/Windows-Deployment/main/Windows-Setup.ps1" -OutFile C:\Support\Scripts\WindowsSetup.ps1
 
 # Set admin user PasswordExpires to never
-Set-LocalUser -Name "admin" -PasswordNeverExpires 1
+New-LocalUser -Name "admin" -PasswordNeverExpires 1
 
 # Disable Privacy Settings after Deployment reboot
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OOBE" /v DisablePrivacyExperience /t REG_DWORD /d 1
