@@ -1,19 +1,18 @@
 ﻿<#
-Company: Self
-Contact: colebermudezpro@startmail.com
+Company: Cyber Security Works
+Contact: colebermudezpro@cybersecurityworks.com
 Created: October 15, 2021
-Last Modified: January 18, 2022
+Last Modified: February 7, 2023
 
 Credits:
 Created by Cole Bermudez
 
 Change Log:
-1/18/2022
+2/7/2023
 Changes By Cole Bermudez:
 -Corrected SSD Overprovisioning
 -Added in Changing Computer name
--Added creation of CustLocAdmin with a unique password set by input
--Added Reg key to lock to version 21H2
+-Added and checked Windows Hardening
 -Added services that should be manually started to reduce startup time and improve performance and resource usage
 #>
 

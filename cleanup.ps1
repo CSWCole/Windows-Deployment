@@ -1,17 +1,13 @@
 <#
-Company: Self
-Contact: colebermudezpro@startmail.com
+Company: Cyber Security Works
+Contact: colebermudezpro@vybersecurityworks.com
 Created: October 15, 2021
-Last Modified: January 25, 2022
 
 Credits:
 Cole Bermudez created this script
-Last Updated: January 25, 2022
+Last Updated: February 7, 2023
 
 Change Log:
-1/25/2022
-Changes By Cole Bermudez:
--Added lines 342-371 as a basis for dynamic installation of Automate once a CSV of Tokens is compiled.
 #>
 
 Write-Host -ForegroundColor Green "Windows Deployment will now begin. `nPlease refer to logs for review."
