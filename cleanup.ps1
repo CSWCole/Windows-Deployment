@@ -8,6 +8,9 @@ Cole Bermudez created this script
 Last Updated: February 7, 2023
 
 Change Log:
+2/7/2023
+Changes by Cole Bermudez:
+Cleaned up and made more readable
 #>
 
 Write-Host -ForegroundColor Green "Windows Deployment will now begin. `nPlease refer to logs for review."
@@ -27,9 +30,7 @@ REG ADD "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v AutoAdmi
 Write-Host -ForegroundColor Green "This will error out. This is expected. The action takes place as expected."
 REG DELETE "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultPassword /f
 
-
-# Run WindowsSetup2_0-WIP
-# Forked from Cole's GitHub repo
+# Run WindowsSetup
 iex -Command "C:\Support\Scripts\WindowsSetup.ps1"
 
 # Removes install directories except logs
