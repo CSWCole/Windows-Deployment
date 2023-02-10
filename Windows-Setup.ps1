@@ -24,6 +24,10 @@ Limitations:
 # Create a log file for debugging
 Start-Transcript -Append C:\Support\Logs\WindowsSetupLog.txt
 
+#Install module and import for later use
+Install-Module -Name LocalAccountManagement
+Import-Module LocalAccountManagement
+
 #Set the Computer name
 while ($confirmInfo -ne 'y') {
 	$compName = (Read-Host "Enter New Computer Name")
@@ -174,7 +178,9 @@ Enable-BitLocker -MountPoint "C:" -EncryptionMethod Aes128 -RecoveryKeyPath "E:\
 $UserName = Read-Host "Please set the user's name"
 $Password = Read-Host "Please set the password for User" -AsSecureString
 New-LocalUser -Name $UserName -Password $Password -PasswordNeverExpires
-Add-LocalGroupMember -Group "Administrators" -Member $UserName
+#Add-LocalGroupMember -Group "Administrators" -Member $UserName
+#Force user password change at login
+Set-LocalUser -Name $UserName -ExpirePassword
 
 ##########Essential Tweaks##########
 

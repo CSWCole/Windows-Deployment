@@ -41,7 +41,8 @@ Invoke-WebRequest "https://raw.githubusercontent.com/CSWCole/Windows-Deployment/
 Invoke-WebRequest "https://raw.githubusercontent.com/CSWCole/Windows-Deployment/main/Windows-Setup.ps1" -OutFile C:\Support\Scripts\WindowsSetup.ps1
 
 # Set admin user PasswordExpires to never
-New-LocalUser -Name "admin" -NoPassword
+#$pass = ConvertTo-SecureString "admin" -AsPlainText -Force
+#New-LocalUser -Name "admin" -Password
 
 # Disable Privacy Settings after Deployment reboot
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\OOBE" /v DisablePrivacyExperience /t REG_DWORD /d 1
