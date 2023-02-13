@@ -200,6 +200,9 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 #Install 7-zip
     choco install 7zip -y
 
+#Install Open VPN
+    choco install openvpn-connect
+
 #Enable RDP
 #Write-Host -ForegroundColor Green "Enable RDP"
 #reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
