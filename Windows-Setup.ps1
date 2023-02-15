@@ -201,7 +201,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
     choco install 7zip -y
 
 #Install Open VPN
-    choco install openvpn-connect
+    choco install openvpn-connect -y
 
 #Enable RDP
 #Write-Host -ForegroundColor Green "Enable RDP"
@@ -218,7 +218,7 @@ Start-Sleep 15
     Invoke-WebRequest -Uri "https://raw.githubusercontent.com/cole-bermudez/Windows-Deployment/main/ooshutup10.cfg" -Outfile "C:\Support\Scripts\ooshutup10.cfg"
     Invoke-WebRequest -Uri "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -outFile "C:\Support\Scripts\OOSU10.exe"
     cd C:\Support\Scripts
-    ./OOSU10.exe ooshutup10.cfg /quiet
+    ./OOSU10.exe ooshutup10.cfg /quiet 
 
     Write-Host  -ForegroundColor Green "Disabling Telemetry..."
     $ResultText.text += "`r`n" +"Disabling Telemetry..."

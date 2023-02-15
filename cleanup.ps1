@@ -31,7 +31,8 @@ Write-Host -ForegroundColor Green "This will error out. This is expected. The ac
 REG DELETE "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v DefaultPassword /f
 
 # Run WindowsSetup
-iex -Command "C:\Support\Scripts\WindowsSetup.ps1"
+PowerShell -ExecutionPolicy Bypass -File "C:\Support\Scripts\Windows-Setup.ps1"
+
 
 # Removes install directories except logs
 Remove-Item -Path C:\\Support\\Scripts -Recurse -Verbose
